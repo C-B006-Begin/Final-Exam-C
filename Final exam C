@@ -1,0 +1,155 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Student{
+  int ID;
+  char Name[100];
+  char namsinh[10];
+  char gioitinh[3];
+};
+char* line(char c, int len){
+     static char s[1000];
+     for(int i = 0;i<len;i++){
+         s[i]= c;
+     }
+     s[len]='\0';
+     return s;
+}
+
+void printline(){
+    printf("+%s+",line('=',52));
+    printf("%s+",line('=',10));
+    printf("%s+",line('=',12));
+}
+void printline2(){
+    printf("+%s+",line('-',52));
+    printf("%s+",line('-',10));
+    printf("%s+",line('-',12));
+}
+
+char* center(char s[], int len){
+        int llen=len-strlen(s);
+        llen/=2;
+    static char s_new[1000];
+    for(int i = 0;i<llen;i++){
+        s_new[i]=32;
+    }
+    for(int i = 0;i<strlen(s);i++){
+        s_new[llen+i]=s[i];
+    }
+    for(int i = llen+strlen(s);i<len;i++){
+        s_new[i]=32;
+    }
+    s_new[len]='\0';
+    return s_new;
+}
+char* lefttrim(char s[], int len){
+    static char s_new[1000];
+    for(int i = 0;i<strlen(s);i++){
+        s_new[i]=s[i];
+    }
+    for(int i = strlen(s);i<len;i++){
+        s_new[i]=32;
+    }
+    s_new[len]='\0';
+    return s_new;
+}
+
+void printtile(){
+    char title[][100] ={"ho va ten","nam sinh", "gioi tinh"};
+    printline();
+    printf("\n| %s ", center(title[0],50));
+    printf("| %s ", center(title[1],8));
+    printf("| %s |\n", center(title[2],10));
+    printline();
+}
+
+void InputStudent(struct Student std[], int number){
+
+    for(int i = 0;i<number;i++){
+        printf("Nhap sinh vien thu %d\n",i+1);
+        printf("Ho ten: ");
+        gets(std[i].Name);
+        fflush(stdin);
+        printf("Nam sinh: ");
+        gets(std[i].namsinh);
+        printf("gioi tinh : ");
+       gets(std[i].gioitinh);
+    }
+}
+
+void OutputStudent(struct Student std[], int number){
+    for(int i = 0;i<number;i++){
+        printf("\n| %s ", lefttrim(std[i].Name,50));
+        printf("| %s ", center(std[i].namsinh,8));
+        printf("| %s |\n", center(std[i].gioitinh,10));
+        printline2();
+    }
+}
+void savefile(struct Student std[], int size){
+    FILE *f;
+    f = fopen("D:\\test\\qlhs.dat","w");
+    if(f==NULL){
+	printf("khong tao duoc file");	
+	return;
+	}   
+	for(int i = 0; i<size;i++){
+	fwrite(&std[i],sizeof(struct Student),1,f);
+	if(fwrite==0){
+		printf("luu noi dung thanh cong");
+		return;
+	}
+	}
+	fclose(f);
+}
+void readfile(char filepath[]){
+	FILE *f;
+	f = fopen(filepath,"r");
+	if(f==NULL){
+		printf("doc file bi loi");
+		return;
+	}
+	struct Student std[1000];
+	int i = 0;
+	while(fread(&std[i],sizeof(struct Student),1,f)) {
+	i++;
+	}
+	fclose(f);
+//	printf("\n%d",i);
+	printtile();
+    OutputStudent(std,i);
+}
+int main()
+{   int n;
+    //int number;
+    printf("1. Load Data\n2.Nhap Lieu :\n3.In danh sach hoc sinh\n4. Luu thong tin hoc sinh\n5. Thoat\nnhap vao chuc nang ban can : ");
+    scanf("%d",&n);
+    switch(n){
+    case 1 : 
+            printf("Load Data");
+            readfile("D:\\test\\qlhs.dat");		   
+	case 2 : 
+	        printf("\n---Nhap Lieu Hoc Sinh---");
+    		struct Student std[20];
+    		int number;
+            printf("\nMoi nhap so luong hoc vien: ");
+            scanf("%d%*c",&number);
+            InputStudent(std,number);		
+    case 3 :
+            printf("\nIn danh sach hoc sinh\n");
+            printtile();
+       		OutputStudent(std,number); 		
+    case 4 : 
+            printf("\nLuu danh sach hoc sinh");
+       		savefile(std,number);
+    case 5:
+   			printf("\nThoat Chuong Trinh");
+   			break;
+    }
+   //struct Student std[20];
+   //InputStudent(std,number);
+   //printtile();
+   //OutputStudent(std,number);
+  //savefile(std,number);
+   //readfile("D:\\temp\\HSTH.dat");
+}
