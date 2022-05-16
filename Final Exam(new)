@@ -126,7 +126,7 @@ void readfile(char filepath[]){
 	}
 	fclose(f);
 	printtile();
-    OutputStudent(std,i);
+        OutputStudent(std,i);
 }
 int main()
 {   int n;
@@ -137,27 +137,27 @@ int main()
     case 1 : 
             printf("Load Data\n");
             readfile("D:\\test\\qlhs.dat");
-			goto menu; 	   
-	case 2 : 
-	        printf("---Nhap Lieu Hoc Sinh---");
-    		struct Student std[20];
-    		int number;
+	    goto menu; 	   
+    case 2 : 
+	    printf("---Nhap Lieu Hoc Sinh---");
+    	    struct Student std[20];
+    	    int number;
             printf("\nMoi nhap so luong hoc vien: ");
             scanf("%d%*c",&number);
             InputStudent(std,number);	     
-			goto menu;       
+	    goto menu;       
     case 3 :
             printf("In danh sach hoc sinh\n");
             printtile();
-       		OutputStudent(std,number);
-       		printf("\n");
-			goto menu; 		
+       	    OutputStudent(std,number);
+            printf("\n");
+	    goto menu; 		
     case 4 : 
             printf("---Luu danh sach hoc sinh thanh cong---\n");
-       		savefile(std,number);
-       		goto menu; 
+       	    savefile(std,number);
+       	    goto menu; 
     case 5:
-   			printf("\n---Thoat Chuong Trinh---");
-   			break;
+   	    printf("\n---Thoat Chuong Trinh---");
+   	    break;
     }
 }
