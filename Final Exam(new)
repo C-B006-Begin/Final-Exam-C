@@ -7,6 +7,7 @@ struct Student{
   char namsinh[10];
   char gioitinh[3];
 };
+
 void InputStudent(struct Student std[], int number);
 void OutputStudent(struct Student std[], int number);
 char* line(char c, int len);
@@ -26,7 +27,6 @@ char* line(char c, int len){
      s[len]='\0';
      return s;
 }
-
 void printline(){
     printf("+%s+",line('=',52));
     printf("%s+",line('=',10));
@@ -37,7 +37,6 @@ void printline2(){
     printf("%s+",line('-',10));
     printf("%s+",line('-',12));
 }
-
 char* center(char s[], int len){
         int llen=len-strlen(s);
         llen/=2;
@@ -65,7 +64,6 @@ char* lefttrim(char s[], int len){
     s_new[len]='\0';
     return s_new;
 }
-
 void printtile(){
     char title[][100] ={"ho va ten","nam sinh", "gioi tinh"};
     printline();
@@ -76,7 +74,6 @@ void printtile(){
 }
 
 void InputStudent(struct Student std[], int number){
-
     for(int i = 0;i<number;i++){
         printf("Nhap sinh vien thu %d\n",i+1);
         printf("Ho ten: ");
@@ -87,7 +84,6 @@ void InputStudent(struct Student std[], int number){
         gets(std[i].gioitinh);
     }
 }
-
 void OutputStudent(struct Student std[], int number){
     for(int i = 0;i<number;i++){
         printf("\n| %s ", lefttrim(std[i].Name,50));
@@ -96,6 +92,7 @@ void OutputStudent(struct Student std[], int number){
         printline2();
     }
 }
+
 void savefile(struct Student std[], int size){
     FILE *f;
     f = fopen("D:\\test\\qlhs.dat","w");
@@ -104,12 +101,12 @@ void savefile(struct Student std[], int size){
 	return;
 	}   
 	for(int i = 0; i<size;i++){
-	fwrite(&std[i],sizeof(struct Student),1,f);
-	if(fwrite==0){
-		printf("luu noi dung khong thanh cong");
-		return;
+	    fwrite(&std[i],sizeof(struct Student),1,f);
+	        if(fwrite==0){
+	              printf("luu noi dung khong thanh cong");
+		           return;
 	}
-	}
+		}
 	fclose(f);
 }
 void readfile(char filepath[]){
