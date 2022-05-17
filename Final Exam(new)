@@ -2,7 +2,6 @@
 #include <string.h>
 
 struct Student{
-  int ID;
   char Name[100];
   char namsinh[10];
   char gioitinh[3];
